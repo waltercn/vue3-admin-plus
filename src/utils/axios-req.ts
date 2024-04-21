@@ -1,9 +1,23 @@
 import axios from 'axios'
 import { ElLoading, ElMessage, ElMessageBox } from 'element-plus'
 import { useBasicStore } from '@/store/basic'
+import JSONBIG from 'json-bigint'
 
 //使用axios.create()创建一个axios请求实例
-const service = axios.create()
+const service = axios.create(
+  {
+    transformResponse : [
+      function (data) {
+        const json = JSONBIG({
+          storeAsString: true
+        })
+        const res = json.parse(data)
+        return res
+      }
+    ],
+  }
+)
+
 let loadingInstance: any = null //loading实例
 let tempReqUrlSave = ''
 let authorTipDoor = true

@@ -13,8 +13,8 @@ export default defineConfig({
     environment: 'jsdom',
     //setup 文件的路径。它们将运行在每个测试文件之前。
     setupFiles: ['./vitest.setup.ts'],
-    transformMode: {
-      web: [/\.[jt]sx$/]
+    testTransformMode: {
+      web: [`/\.[jt]sx$/`]
     }
   }
 })

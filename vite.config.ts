@@ -30,15 +30,27 @@ export default defineConfig(({ command, mode }) => {
       port: 5005, // 类型： number 指定服务器端口;
       open: false, // 类型： boolean | string在服务器启动时自动在浏览器中打开应用程序；
       host: true,
+      cors: true,
       https: false,
       // origin: ' http://192.168.198.226:5005',
-      // proxy: {
-      //   [env.VITE_APP_BASE_URL]: {
-      //     target: env.VITE_PROXY_URL,
-      //     changeOrigin: true,
-      //     rewrite: (path) => path.replace(new RegExp(`^${env.VITE_APP_BASE_URL}`), '')
-      //   }
-      // }
+      proxy: {
+        "/remoteapi": {
+          target: env.VITE_PROXY_URL,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/remoteapi/, '')
+        },
+        // [env.VITE_APP_LOCAL_URL]: {
+        //   target: env.VITE_PROXY_LOCAL_URL,
+        //   changeOrigin: true,
+        //   rewrite: (path) => path.replace(new RegExp(`^${env.VITE_APP_LOCAL_URL}`), '')
+        // }
+        "/localapi": {
+          target: env.VITE_PROXY_LOCAL_URL,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/localapi/, '')
+          // rewrite: (path) => path.replace(new RegExp(`^${env.VITE_APP_LOCAL_URL}`), '')
+        },
+      }
     },
     preview: {
       port: 5010,

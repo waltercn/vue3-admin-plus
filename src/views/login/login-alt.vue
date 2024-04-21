@@ -47,11 +47,10 @@
         <el-checkbox
           v-model="loginForm.rememberMe"
           style="margin: 0px 0px 25px 0px"
-          true-label="true"
-          false-label="false"
-        >
-          记住密码
-        </el-checkbox>
+          true-value="true"
+          false-value="false"
+          label="记住密码"
+        />
         <el-form-item style="width: 100%">
           <el-button :loading="loading" size="large" type="primary" style="width: 100%" @click.prevent="handleLogin">
             <span v-if="!loading">登 录</span>
@@ -176,7 +175,8 @@ const getCode = () => {
   getCodeImg().then(({ data }) => {
     if (data.captchaEnabled) {
       captchaEnabled.value = true
-      codeUrl.value = `data:image/gif;base64,${data.img}`
+      // codeUrl.value = `data:image/gif;base64,${data.img}`
+      codeUrl.value = `${data.img}`
       loginForm.uuid = data.uuid
     }
   })
@@ -250,6 +250,7 @@ $light_gray: #eee;
     background: transparent;
     border: 0px;
     -webkit-appearance: none;
+    appearance: none;
     border-radius: 50px;
     padding: 10px 5px 10px 35px;
     color: #999;

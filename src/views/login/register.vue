@@ -181,7 +181,8 @@ const getCode = () => {
   getCodeImg().then(({ data }) => {
     if (data.captchaEnabled) {
       captchaEnabled.value = true
-      codeUrl.value = `data:image/gif;base64,${data.img}`
+      // codeUrl.value = `data:image/gif;base64,${data.img}`
+      codeUrl.value = `${data.img}`
       registerForm.uuid = data.uuid
     }
   })
@@ -255,6 +256,7 @@ $light_gray: #eee;
     background: transparent;
     border: 0px;
     -webkit-appearance: none;
+    appearance: none;
     border-radius: 50px;
     padding: 10px 5px 10px 35px;
     color: #999;

@@ -5,11 +5,14 @@ import settings from '@/settings'
 export const userInfoReq = () => {
   return new Promise((resolve) => {
     const reqConfig = {
-      url: 'getInfo',
-      data:{platformId: settings.platformId},
+      // url: 'getInfo',
+      url: '/rbac/getInfo',
+      baseURL: import.meta.env.VITE_APP_LOCAL_URL,
+      data: {platformId: settings.platformId},
       method: 'get'
     }
     request(reqConfig).then((res) => {
+      console.debug("getInfo", res?.data)
       resolve(res?.data)
     })
   })
@@ -19,12 +22,15 @@ export const userInfoReq = () => {
 export const getRouterReq = () => {
   return new Promise((resolve) => {
     const reqConfig = {
-      url: 'getMenu',
+      // url: 'getMenu',
+      url: '/rbac/getMenu',
+      baseURL: import.meta.env.VITE_APP_LOCAL_URL,
       params: { platformId: settings.platformId },
       reqLoading: false,
       method: 'get'
     }
     request(reqConfig).then(({ data }) => {
+      console.debug("getMenu", data)
       resolve(data)
     })
   })
@@ -33,7 +39,9 @@ export const getRouterReq = () => {
 //登录
 export const loginReq = (subForm) => {
   return request({
-    url: 'login',
+    // url: 'login',
+    url:'/auth/login',
+    baseURL: import.meta.env.VITE_APP_LOCAL_URL,
     data: subForm,
     method: 'post',
     isNotTipErrorMsg: true
@@ -60,7 +68,9 @@ export const loginOutReq = () => {
 //获取验证码
 export const getCodeImg = () => {
   return request({
-    url: '/captchaImage',
+    // url: '/captchaImage',
+    url: 'captcha/generate',
+    baseURL: import.meta.env.VITE_APP_LOCAL_URL,
     headers: {
       isToken: false
     },
