@@ -195,11 +195,12 @@ const handleUpdate = (row) => {
 }
 const getList = () => {
   loading.value = true
-  if (dateRange.value.length) {
-    queryParams.beginTime = dateRange.value.at(-1)
-    queryParams.endTime = dateRange.value.at(-2)
+  if (dateRange.value && dateRange.value.length) {
+    queryParams.beginTime = dateRange.value.at(-2)
+    queryParams.endTime = dateRange.value.at(-1)
   }
   listReq(removeEmptyKey(queryParams)).then(({ data, total }) => {
+    console.log(data, total)
     loading.value = false
     userList.value = data
     totalNum.value = total

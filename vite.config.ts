@@ -13,9 +13,25 @@ import setting from './src/settings'
 // const prodMock = setting.openProdMock
 import vitePluginSetupExtend from './src/plugins/vite-plugin-setup-extend'
 // import { visualizer } from 'rollup-plugin-visualizer'
+// import * as dotenv from 'dotenv'
+// import * as fs from 'fs'
+
 const pathSrc = resolve(__dirname, 'src')
 // @ts-ignore
 export default defineConfig(({ command, mode }) => {
+  // Ref gin-vue-admin
+  // const NODE_ENV = mode || 'dev'
+  // const envFiles = [
+  //   `.env.${NODE_ENV}`
+  // ]
+  // for (const file of envFiles) {
+  //   const envConfig = dotenv.parse(fs.readFileSync(file))
+  //   for (const k in envConfig) {
+  //     process.env[k] = envConfig[k]
+  //   }
+  // }
+  // viteLogo(process.env)
+
   const env = loadEnv(mode, process.cwd(), '') //获取环境变量
   return {
     base: setting.viteBasePath,
@@ -39,17 +55,22 @@ export default defineConfig(({ command, mode }) => {
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/remoteapi/, '')
         },
-        // [env.VITE_APP_LOCAL_URL]: {
+        // "/localapi": {
         //   target: env.VITE_PROXY_LOCAL_URL,
         //   changeOrigin: true,
-        //   rewrite: (path) => path.replace(new RegExp(`^${env.VITE_APP_LOCAL_URL}`), '')
-        // }
-        "/localapi": {
-          target: env.VITE_PROXY_LOCAL_URL,
+        //   rewrite: (path) => path.replace(/^\/localapi/, '')
+        // },
+        // [env.VITE_APP_LOCAL_URL]: { // 需要代理的路径   例如 '/api'
+        //   target: `${process.env.VITE_PROXY_LOCAL_URL}`, // 代理到 目标路径
+        //   changeOrigin: false,
+        //   rewrite: path => path.replace(new RegExp('^' + process.env.VITE_APP_LOCAL_URL), ''),
+        // },
+        [env.VITE_APP_LOCAL_URL]: { // 需要代理的路径   例如 '/api'
+          target: `${env.VITE_PROXY_LOCAL_URL}`, // 代理到 目标路径
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/localapi/, '')
-          // rewrite: (path) => path.replace(new RegExp(`^${env.VITE_APP_LOCAL_URL}`), '')
-        },
+          rewrite: path => path.replace(new RegExp('^' + env.VITE_APP_LOCAL_URL), ''),
+        }
+
       }
     },
     preview: {

@@ -97,6 +97,7 @@ export function changeUserStatus(userId, status) {
 //查询列表
 export const listReq = (query) => {
   return request({
+    baseURL: import.meta.env.VITE_APP_LOCAL_URL,
     url: '/system/user/list',
     method: 'post',
     data: query||{}

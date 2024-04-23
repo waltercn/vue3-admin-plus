@@ -76,6 +76,7 @@ export const getDict = (id) => {
 /*字典转换相关接口*/
 export const dictDataReq=(dictType)=>{
   return axiosReq({
+    baseURL: import.meta.env.VITE_APP_LOCAL_URL,
     url: '/DataDict/selectDictDataList',
     method: 'get',
     reqLoading: false,
