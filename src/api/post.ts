@@ -4,6 +4,7 @@ import request from '@/utils/axios-req'
 export const listReq = (query) => {
   //查询列表
   return request({
+    baseURL: import.meta.env.VITE_APP_LOCAL_URL,
     url: '/system/post/list',
     method: 'post',
     reqLoading: false,

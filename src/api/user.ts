@@ -6,8 +6,8 @@ export const userInfoReq = () => {
   return new Promise((resolve) => {
     const reqConfig = {
       // url: 'getInfo',
-      url: '/rbac/getInfo',
       baseURL: import.meta.env.VITE_APP_LOCAL_URL,
+      url: '/rbac/getInfo',
       data: {platformId: settings.platformId},
       method: 'get'
     }
@@ -107,6 +107,7 @@ export const listReq = (query) => {
 //删除
 export const deleteReq = (id) => {
   return request({
+    baseURL: import.meta.env.VITE_APP_LOCAL_URL,    
     url: `/system/user/${id}`,
     method: 'delete'
   })
@@ -167,6 +168,7 @@ export const updateUser = (data) => {
 //详情
 export const getUser = (id) => {
   return request({
+    baseURL: import.meta.env.VITE_APP_LOCAL_URL,
     url: `/system/user/${id}`,
     method: 'get'
   })
@@ -175,6 +177,7 @@ export const getUser = (id) => {
 //详情
 export const getUserInfo = () => {
   return request({
+    baseURL: import.meta.env.VITE_APP_LOCAL_URL,
     url: `/system/user`,
     method: 'get'
   })
