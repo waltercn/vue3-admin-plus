@@ -10,6 +10,8 @@ const service = axios.create(
       function (data) {
         const json = JSONBIG({
           storeAsString: true
+          // alwaysParseAsBig: true,
+          // useNativeBigInt: true,
         })
         const res = json.parse(data)
         return res

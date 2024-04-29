@@ -160,6 +160,7 @@ export const addUser = (data) => {
 //更新
 export const updateUser = (data) => {
   return request({
+    baseURL: import.meta.env.VITE_APP_LOCAL_URL,
     url: `/system/user`,
     data,
     method: 'put'
